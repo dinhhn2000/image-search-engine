@@ -7,18 +7,24 @@ export const className = 'Dimage'
 
 export const client = Weaviate.client({
   scheme: 'http',
-  host: 'localhost:8080'
+  host: 'weaviate:8080'
 })
 
-export async function getSchemas() {
-  return (await client.schema.getter().do())
+export async function getSchemas(res) {
+  try {
+    res.json((await client.schema.getter().do()))
+  } catch (error) {
+    console.log(error)
+    res.json({ error: "Cannot get schema" })
+  }
 }
 
-export async function setupSchema() {
+export async function setupSchema(res) {
   await client.schema.classCreator().withClass(ImageSchema).do()
+  res.send('Done')
 }
 
-export async function saveImages(_req, res) {
+export async function saveImages(res) {
   const images = readImages()
   for (const image of images) {
     const properties = image

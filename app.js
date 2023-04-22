@@ -10,9 +10,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/search', uploadHandlers)
-app.get('/setup-schema', () => Weviate.setupSchema())
-app.get('/schema', async (_req, res) => res.json(await Weviate.getSchemas()))
-app.get('/dump-database', () => Weviate.saveImages())
+app.get('/setup-schema', (_req, res) => Weviate.setupSchema(res))
+app.get('/schema', async (_req, res) => await Weviate.getSchemas(res))
+app.get('/dump-database', (_req, res) => Weviate.saveImages(res))
 
 app.listen(3000, () => {
   console.log('Server started on port 3000')
