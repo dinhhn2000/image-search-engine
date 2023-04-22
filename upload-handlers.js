@@ -1,18 +1,41 @@
-import express from 'express';
-import multer from 'multer';
-import fs from 'fs';
+import express from 'express'
+import multer from 'multer'
+import fs from 'fs'
+import * as Weviate from './weviate/weviate.js'
+import path from 'path'
 
-const router = express.Router();
+const router = express.Router()
 
-const upload = multer();
+const upload = multer()
 
-// define the endpoint for file upload
-router.post('/', upload.single('image'), (req, res) => {
-  // read the uploaded file and convert it to base64
-  const fileData = req.file.buffer.toString('base64');
+router.post('/', upload.single('image'), async (req, res) => {
+  const limit = parseInt(req.body.limit) || 3
 
-  // return the base64-encoded image in the response
-  res.send(fileData);
-});
+  const fileData = req.file.buffer.toString('base64')
+  const resImages = await Weviate.client.graphql.get()
+    .withClassName(Weviate.className)
+    .withFields(['image'])
+    .withNearImage({ image: fileData })
+    .withLimit(limit)
+    .do()
 
-export default router;
+  const directory = './results'
+
+  // Create results directory
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory)
+  }
+
+  // Clear results directory
+  const files = fs.readdirSync(directory)
+  for (const file of files) fs.unlinkSync(path.join(directory, file))
+
+  // Write result to filesystem
+  resImages.data.Get[Weviate.className].map((result, index) => {
+    fs.writeFileSync(`./results/result-${index}.jpg`, result.image, 'base64')
+  })
+
+  res.send('Done')
+})
+
+export default router
