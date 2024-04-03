@@ -31,10 +31,12 @@ jobs:
         with:
           ref: ${{ github.event.inputs.commit }}
           fetch-depth: 0
+      - name: Show current commit
+        run: echo "Current commit: ${{ github.sha }}"
       - name: Install dependencies
         run: echo "Building ..."
       - name: Build
-        run: "Deploying to DEV ..."
+        run: echo "Deploying to DEV ..."
 
   deploy_prod:
     runs-on: ubuntu-latest
@@ -47,6 +49,8 @@ jobs:
         with:
           ref: \${{ github.event.inputs.commit }}
           fetch-depth: 0
+      - name: Show current commit
+        run: echo "Current commit: ${{ github.sha }}"
       - name: Install dependencies
         run: echo "Building ..."
       - name: Build
