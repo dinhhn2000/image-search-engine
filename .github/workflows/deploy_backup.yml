@@ -1,4 +1,4 @@
-name: Node.js CI Deployment Production
+name: Node.js CI Deployment
 
 on: 
   workflow_dispatch:
