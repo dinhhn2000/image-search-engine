@@ -31,8 +31,8 @@ jobs:
         with:
           ref: ${{ github.event.inputs.commit }}
           fetch-depth: 0
-      - name: Show current commit
-        run: echo "Current commit: ${{ github.workflow_sha }}"
+      # - name: Show current commit
+      #   run: echo "Current commit: ${{ github.workflow_sha }}"
       - name: Install dependencies
         run: echo "Building ..."
       - name: Build
