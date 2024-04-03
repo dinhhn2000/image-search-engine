@@ -54,4 +54,4 @@ jobs:
       - name: Install dependencies
         run: echo "Building ..."
       - name: Build
-        run: "Deploying to PROD ..."
+        run: echo "Deploying to PROD ..."
