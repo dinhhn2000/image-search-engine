@@ -22,14 +22,14 @@ run-name: ${{ github.event_name != 'workflow_dispatch' && format('{0} | {1}', gi
 jobs:
   deploy_dev:
     runs-on: ubuntu-latest
-    if: github.event.inputs.environment == "Development"
+    if: github.event.inputs.environment == 'Development'
     steps:
       - run: echo "Deployment is triggerd by ${{ github.triggering_actor }}"
       - run: echo "Commit hash is ${{ inputs.commit }}"
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: \${{ github.event.inputs.commit }}
+          ref: ${{ github.event.inputs.commit }}
           fetch-depth: 0
       - name: Install dependencies
         run: echo "Building ..."
@@ -38,7 +38,7 @@ jobs:
 
   deploy_prod:
     runs-on: ubuntu-latest
-    if: github.event.inputs.environment == "Production"
+    if: github.event.inputs.environment == 'Production'
     steps:
       - run: echo "Deployment is triggerd by ${{ github.triggering_actor }}"
       - run: echo "Commit hash is ${{ inputs.commit }}"
