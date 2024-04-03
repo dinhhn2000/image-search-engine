@@ -27,12 +27,12 @@ services:
     environment:
       ENABLE_CUDA: '0'
 
-  web-service:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - i2v-neural
-      - weaviate
+  # web-service:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - i2v-neural
+  #     - weaviate
 
 ...

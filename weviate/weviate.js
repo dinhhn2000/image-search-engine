@@ -3,11 +3,11 @@ import fs from 'fs'
 import path from 'path'
 import { ImageSchema } from './schema.js'
 
-export const className = 'Dimage'
+export const className = 'Image_to_vector_schema'
 
 export const client = Weaviate.client({
   scheme: 'http',
-  host: 'weaviate:8080'
+  host: 'localhost:8080'
 })
 
 export async function getSchemas(res) {
@@ -47,6 +47,7 @@ const readImages = () => {
   const folderPath = process.cwd() + '/data'
 
   const fileNames = fs.readdirSync(folderPath)
+  console.log(fileNames);
   const imageInfo = fileNames.map((fileName) => {
     const filePath = path.join(folderPath, fileName)
     const base64Data = getBase64Data(filePath)

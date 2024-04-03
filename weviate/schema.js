@@ -1,5 +1,5 @@
 export const ImageSchema = {
-  class: 'Dimage',
+  class: 'image_to_vector_schema',
   vectorizer: 'img2vec-neural',
   vectorIndexType: 'hnsw',  // Hierarchical Navigable Small Worlds
   moduleConfig: {
