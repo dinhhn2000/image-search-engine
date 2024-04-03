@@ -1,0 +1,53 @@
+name: Node.js CI Deployment Production
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: choice
+        description: Which envrionment to deploy?
+        options: 
+        - Development
+        - Production
+      commit:
+        required: false
+        type: string
+        description: "[Optional] Deploy on which commit SHA?"
+
+        
+
+run-name: ${{ github.event_name != 'workflow_dispatch' && format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}
+
+jobs:
+  deploy_dev:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.environment == "Development"
+    steps:
+      - run: echo "Deployment is triggerd by ${{ github.triggering_actor }}"
+      - run: echo "Commit hash is ${{ inputs.commit }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: \${{ github.event.inputs.commit }}
+          fetch-depth: 0
+      - name: Install dependencies
+        run: echo "Building ..."
+      - name: Build
+        run: "Deploying to DEV ..."
+
+  deploy_prod:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.environment == "Production"
+    steps:
+      - run: echo "Deployment is triggerd by ${{ github.triggering_actor }}"
+      - run: echo "Commit hash is ${{ inputs.commit }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: \${{ github.event.inputs.commit }}
+          fetch-depth: 0
+      - name: Install dependencies
+        run: echo "Building ..."
+      - name: Build
+        run: "Deploying to PROD ..."
