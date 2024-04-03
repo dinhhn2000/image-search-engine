@@ -17,7 +17,7 @@ on:
 
         
 
-run-name: ${{ github.event_name != 'workflow_dispatch' && format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}
+# run-name: ${{ github.event_name != 'workflow_dispatch' && format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}
 
 jobs:
   deploy_dev:
