@@ -47,7 +47,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: \${{ github.event.inputs.commit }}
+          ref: ${{ github.event.inputs.commit }}
           fetch-depth: 0
       - name: Show current commit
         run: echo "Current commit: ${{ github.sha }}"
