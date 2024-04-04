@@ -28,12 +28,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.commit || '' }}
+          ref: ${{ inputs.commit || '' }}
           fetch-depth: 0
       - name: Get current branch
         id: current_branch
-        run: echo "branch=$(git branch --show-current)" >> $GITHUB_OUTPUT
-      - name: Validate branch
+        run: echo "branch=$(git name-rev --name-only --exclude=tags/* ${{ inputs.commit }})" >> $GITHUB_OUTPUT
+      - name: Validate branch (Checkouted vs Workflow)
         run: echo "${{ steps.current_branch.outputs.branch }} | ${{ github.ref_name }}"
       - name: Show Github SHA
         run: echo "github SHA ${{ github.sha }}"
@@ -53,7 +53,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.commit || '' }}
+          ref: ${{ inputs.commit || '' }}
           fetch-depth: 0
       - name: Show head commit
         run: echo "Head commit ${{ format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}"
