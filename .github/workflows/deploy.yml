@@ -32,9 +32,9 @@ jobs:
           fetch-depth: 0
       - name: Get current branch
         id: current_branch
-        run: echo "branch=$(git name-rev --name-only --exclude=tags/* ${{ inputs.commit }})" >> $GITHUB_OUTPUT
+        run: echo "branch=$(git name-rev --name-only --exclude=tags/* --refs='heads/*' ${{ inputs.commit }})" >> $GITHUB_OUTPUT
       - name: Validate branch (Checkouted vs Workflow)
-        if: contains(steps.current_branch.outputs.branch, github.ref_name)
+        # if: contains(steps.current_branch.outputs.branch, github.ref_name)
         run: echo "${{ steps.current_branch.outputs.branch }} | ${{ github.ref_name }}"
         # run: echo "$(contains('${{ steps.current_branch.outputs.branch }}', '${{ github.ref_name }}'))"
       - name: Show Github SHA
