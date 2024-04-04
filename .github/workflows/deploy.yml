@@ -35,7 +35,7 @@ jobs:
         run: echo "branch=$(git name-rev --name-only --exclude=tags/* ${{ inputs.commit }})" >> $GITHUB_OUTPUT
       - name: Validate branch (Checkouted vs Workflow)
         # run: echo "${{ steps.current_branch.outputs.branch }} | ${{ github.ref_name }}"
-        run: contains('${{ steps.current_branch.outputs.branch }}', '${{ github.ref_name }}')
+        run: echo "$(contains('${{ steps.current_branch.outputs.branch }}', '${{ github.ref_name }}'))"
       - name: Show Github SHA
         run: echo "github SHA ${{ github.sha }}"
       - name: List out all files
