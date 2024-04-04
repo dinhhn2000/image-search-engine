@@ -29,13 +29,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.commit }}
+          ref: ${{ github.event.inputs.commit }} || ''
           fetch-depth: 0
-      # - name: Show current commit
-      #   run: echo "Current commit: ${{ github.workflow_sha }}"
+      - name: Show current commit
+        # run: echo "Current commit ${{ github.event.head_commit.message }}"
+        run: echo "Current commit ${{ github.workflow_sha }}"
       - name: Install dependencies
         run: echo "Building ..."
-      - name: Build
+      - name: Deploy
         run: echo "Deploying to DEV ..."
 
   deploy_prod:
@@ -47,11 +48,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.commit }}
+          ref: ${{ github.event.inputs.commit }} || ''
           fetch-depth: 0
-      # - name: Show current commit
-      #   run: echo "Current commit: ${{ github.workflow_sha }}"
+      - name: Show current commit
+        # run: echo "Current commit ${{ github.event.head_commit.message }}"
+        run: echo "Current commit ${{ github.workflow_sha }}"
       - name: Install dependencies
         run: echo "Building ..."
-      - name: Build
+      - name: Deploy
         run: echo "Deploying to PROD ..."
