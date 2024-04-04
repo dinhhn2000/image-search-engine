@@ -32,7 +32,7 @@ jobs:
           ref: ${{ github.event.inputs.commit || '' }}
           fetch-depth: 0
       - name: Show head commit
-        run: echo "Head commit ${{ github.event.head_commit.message }}"
+        run: echo "Head commit ${{ format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}"
       - name: Show Github SHA
         run: echo "github SHA ${{ github.sha }}"
       - name: List out all files
@@ -54,7 +54,7 @@ jobs:
           ref: ${{ github.event.inputs.commit || '' }}
           fetch-depth: 0
       - name: Show head commit
-        run: echo "Head commit ${{ github.event.head_commit.message }}"
+        run: echo "Head commit ${{ format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}"
       - name: Show Github SHA
         run: echo "github SHA ${{ github.sha }}"
       - name: List out all files
