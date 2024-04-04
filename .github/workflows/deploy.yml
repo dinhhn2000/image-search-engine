@@ -1,4 +1,4 @@
-name: Node.js CI Deployment
+name: CI Deployment
 
 on: 
   workflow_dispatch:
@@ -15,14 +15,12 @@ on:
         type: string
         description: "[Optional] Deploy on which commit SHA?"
 
-        
-
-# run-name: ${{ github.event_name != 'workflow_dispatch' && format('{0} | {1}', github.event.head_commit.message, github.actor) || '' }}
+run-name: ${{ github.event_name == 'workflow_dispatch' && format('{0} | {1} | {2}', inputs.environment, inputs.commit || 'Latest', github.actor) || '' }}
 
 jobs:
   deploy_dev:
     runs-on: ubuntu-latest
-    if: github.event.inputs.environment == 'Development'
+    if: inputs.environment == 'Development'
     steps:
       - run: echo "Deployment is triggerd by ${{ github.triggering_actor }}"
       - run: echo "Commit hash is ${{ inputs.commit }}"
@@ -44,7 +42,7 @@ jobs:
 
   deploy_prod:
     runs-on: ubuntu-latest
-    if: github.event.inputs.environment == 'Production'
+    if: inputs.environment == 'Production'
     steps:
       - run: echo "Deployment is triggerd by ${{ github.triggering_actor }}"
       - run: echo "Commit hash is ${{ inputs.commit }}"
