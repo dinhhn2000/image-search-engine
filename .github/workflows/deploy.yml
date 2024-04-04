@@ -35,6 +35,8 @@ jobs:
         run: echo "Head commit ${{ github.event.head_commit.message }}"
       - name: Show Github SHA
         run: echo "github SHA ${{ github.sha }}"
+      - name: List out all files
+        run: ls -lrt
       - name: Install dependencies
         run: echo "Building ..."
       - name: Deploy
@@ -55,6 +57,8 @@ jobs:
         run: echo "Head commit ${{ github.event.head_commit.message }}"
       - name: Show Github SHA
         run: echo "github SHA ${{ github.sha }}"
+      - name: List out all files
+        run: ls -lrt
       - name: Install dependencies
         run: echo "Building ..."
       - name: Deploy
